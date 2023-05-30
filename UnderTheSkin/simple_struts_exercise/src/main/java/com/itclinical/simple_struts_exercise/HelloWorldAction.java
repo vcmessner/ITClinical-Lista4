@@ -32,10 +32,10 @@ public class HelloWorldAction extends ActionSupport {
         this.myAge = new Age(date);
     }
   //@autowire
-    public HelloWorldAction(String name, String date, String legalAge) {
+    public HelloWorldAction(String name, String date, String country) {
         this.myName = new Name(name);
         this.myDate = new Date(date);
-        this.legalAge = Integer.parseInt(legalAge);
+        this.legalAge = new Country(country).getLegalAge();
         this.myAge = new Age(date);
         this.name=name;
         this.date=date;

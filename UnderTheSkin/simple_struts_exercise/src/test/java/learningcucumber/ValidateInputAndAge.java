@@ -38,7 +38,7 @@ public class ValidateInputAndAge {
         fieldParameterMap.put("name", myName);
         fieldParameterMap.put("date", myDate);
         fieldParameterMap.put("country", myCountry);
-        myAction = new HelloWorldAction(name,date,legalAge);        
+        myAction = new HelloWorldAction(name,date,myCountry);        
     }
 
     @Given("user submits name {string}, date {string} and is from US")
@@ -50,7 +50,7 @@ public class ValidateInputAndAge {
         fieldParameterMap.put("name", myName);
         fieldParameterMap.put("date", myDate);
         fieldParameterMap.put("country", myCountry);  
-        myAction = new HelloWorldAction(name,date,legalAge);     
+        myAction = new HelloWorldAction(name,date,myCountry);     
     }
 
     @Given("user submits name {string}, date {string} and is from Portugal")
@@ -62,7 +62,7 @@ public class ValidateInputAndAge {
         fieldParameterMap.put("name", myName);
         fieldParameterMap.put("date", myDate);
         fieldParameterMap.put("country", myCountry); 
-        myAction = new HelloWorldAction(name,date,legalAge);     
+        myAction = new HelloWorldAction(name,date,myCountry);     
     }
 
     @Given("user submits name {string}, date {string} and is from Spain")
@@ -74,7 +74,7 @@ public class ValidateInputAndAge {
         fieldParameterMap.put("name", myName);
         fieldParameterMap.put("date", myDate);
         fieldParameterMap.put("country", myCountry);
-        myAction = new HelloWorldAction(name,date,legalAge); 
+        myAction = new HelloWorldAction(name,date,myCountry); 
     }
 
     @When("i ask whether user the input is valid")
