@@ -26,6 +26,7 @@ public class HelloWorldAction extends ActionSupport {
     String age;
     String country ="UK";
 
+
     private User user;
 
     int legalAge=18;
@@ -55,6 +56,7 @@ public class HelloWorldAction extends ActionSupport {
     }
     public String execute() throws Exception{
         this.user = new User(name, date, country);
+        this. legalAge = user.country.getLegalAge();
         if(saveDate() && saveUsername()){
             return ActionSupport.SUCCESS;
         }
@@ -120,7 +122,13 @@ public class HelloWorldAction extends ActionSupport {
             return false;
         }
     }*/
-    
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
     public String getName() {
         return name;
