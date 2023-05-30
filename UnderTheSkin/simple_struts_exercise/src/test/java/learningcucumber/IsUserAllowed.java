@@ -25,7 +25,7 @@ public class IsUserAllowed {
         currentDate=currentDate.minusDays(days);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(StringHelper.DATE_FORMAT);
         name = stringHelper.trucateName(name);
-        myAction = new HelloWorldAction(name,currentDate.format(formatter));        
+        myAction = new HelloWorldAction(name,currentDate.format(formatter),"UK");        
     }
 
     @When("we want to abstract the user date input and check if the day intervals provide valid reply")

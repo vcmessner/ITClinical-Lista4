@@ -9,25 +9,20 @@ import com.itclinical.simple_struts_exercise.Country;
 
 public class User {
 
+    public Country country;
+    public Date birthDate;
+    public Age age;
     private Name name;
-    private Age age;
-    private Date birthDate;
-    private Country country;
-    private String legalAge;
+    
+    
+    
 
     @Autowired
     public User(String myName, String birthDate, String myCountry) {
         this.name = new Name(myName);
-        //this.myAge = new Age(myAge);
         this.birthDate = new Date(birthDate);
         this.country = new Country(myCountry);
         this.age = new Age(birthDate);
-    }
-
-    @Autowired
-    public User(String myName, String myDate) {
-        this.name = new Name(myName);
-        this.birthDate = new Date(myDate);
     }
 
 
@@ -51,10 +46,6 @@ public class User {
         return country.getCountry();
     }    
 
-    public String getLegalAge() {
-        return legalAge;
-    }
-
     public void setName(Name name) {
         this.name = name;
     }
@@ -71,9 +62,6 @@ public class User {
         this.country = country;
     }
 
-    public void setLegalAge(String legalAge) {
-        this.legalAge = legalAge;
-    }
 
 
     

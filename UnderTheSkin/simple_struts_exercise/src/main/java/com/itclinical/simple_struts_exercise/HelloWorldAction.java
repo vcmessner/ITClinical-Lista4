@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.opensymphony.xwork2.ActionSupport;
 import freemarker.core.ParseException;
 @SuppressWarnings("serial")
@@ -17,44 +20,41 @@ public class HelloWorldAction extends ActionSupport {
     public static final String INVALID_DATE_MESSAGE_STRING = "Invalid Date. Date should be in format DD/MM/YYYY!";
     StringHelper myChecker = new StringHelper();
 
-    private Name myName;
-    private Date myDate;
-    private Age myAge;
+
     String name;
     String date;
     String age;
+    String country ="UK";
+
+    private User user;
 
     int legalAge=18;
+    private Name myName;
+    private Date myDate;
+    private Age myAge;
 
-    public HelloWorldAction(String name, String date) {
-        this.myName = new Name(name);
-        this.myDate = new Date(date);
-        this.myAge = new Age(date);
-    }
-  //@autowire
+
+    //@Autowired
+    // create a anstract class to decouple user from action? will think more about a way do do it.
     public HelloWorldAction(String name, String date, String country) {
-        this.myName = new Name(name);
-        this.myDate = new Date(date);
-        this.legalAge = new Country(country).getLegalAge();
-        this.myAge = new Age(date);
         this.name=name;
         this.date=date;
-        this.age = myAge.getAge();
+        this.country = country;
+        this.user = new User(name, date, country);
+        this.age = user.getAge();
+        this. legalAge = user.country.getLegalAge();
+
     }
 
+    //@Autowired
     public HelloWorldAction() {
+        this.user = new User(name, date, country);
+        this.age = user.getAge();
+        this. legalAge = user.country.getLegalAge();
         
     }
     public String execute() throws Exception{
-        this.myName = new Name(name);
-        this.myDate = new Date(date);
-        if(myDate.getDate()!=null){
-            this.myAge = new Age(date);
-        }
-        else{
-            this.myAge = null;
-        }
-
+        this.user = new User(name, date, country);
         if(saveDate() && saveUsername()){
             return ActionSupport.SUCCESS;
         }
@@ -62,11 +62,11 @@ public class HelloWorldAction extends ActionSupport {
     }
 
     public boolean saveDate() throws Exception {
-        if(myDate.getDate()==null) {
+        if(user.getDate()==null) {
             addActionError(INVALID_DATE_MESSAGE_STRING);
             return false;
         }
-        if(myAge.checkLegalAge(legalAge,myDate.GetLocalDate())){
+        if(user.age.checkLegalAge(legalAge,user.birthDate.GetLocalDate())){
             return true;
         }
         else{
@@ -76,7 +76,7 @@ public class HelloWorldAction extends ActionSupport {
     }
 
     public boolean saveUsername() throws Exception {
-        if(myName.getName()==null) {
+        if(user.getName()==null) {
             addActionError(INVALID_NAME_MESSAGE_STRING);
             return false;        
         }
@@ -139,7 +139,7 @@ public class HelloWorldAction extends ActionSupport {
     }
 
     public String getAge() {
-        return myAge.getAge();
+        return user.getAge();
     }
     public void setAge(String age) {
         this.age = age;
