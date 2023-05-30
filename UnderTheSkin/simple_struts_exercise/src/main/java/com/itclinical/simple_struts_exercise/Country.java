@@ -2,18 +2,19 @@ package com.itclinical.simple_struts_exercise;
 
 public class Country {
 
-    private String country;
+    private String countryName;
+    private int legalAge;
 
     public String getCountry() {
-        return country;
+        return countryName;
     }
 
     public void setCountry(String country) {
-        this.country = country;
+        this.countryName = country;
     }
 
     public Country(String myCountry) {
-        this.country = myCountry;
+        this.countryName = myCountry;
     }
     
 }

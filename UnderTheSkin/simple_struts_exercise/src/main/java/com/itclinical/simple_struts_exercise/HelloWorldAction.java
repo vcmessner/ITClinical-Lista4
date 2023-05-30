@@ -17,41 +17,56 @@ public class HelloWorldAction extends ActionSupport {
     public static final String INVALID_DATE_MESSAGE_STRING = "Invalid Date. Date should be in format DD/MM/YYYY!";
     StringHelper myChecker = new StringHelper();
 
-    private String name;
-    private String date;
-    private String age;
+    private Name myName;
+    private Date myDate;
+    private Age myAge;
+    String name;
+    String date;
+    String age;
+
     int legalAge=18;
 
     public HelloWorldAction(String name, String date) {
-        this.name = name;
-        this.date = date;
-        age = calculateAge(date);
+        this.myName = new Name(name);
+        this.myDate = new Date(date);
+        this.myAge = new Age(date);
     }
   //@autowire
     public HelloWorldAction(String name, String date, String legalAge) {
-        this.name = name;
-        this.date = date;
+        this.myName = new Name(name);
+        this.myDate = new Date(date);
         this.legalAge = Integer.parseInt(legalAge);
-        age = calculateAge(date);
+        this.myAge = new Age(date);
+        this.name=name;
+        this.date=date;
+        this.age = myAge.getAge();
     }
 
     public HelloWorldAction() {
         
     }
     public String execute() throws Exception{
+        this.myName = new Name(name);
+        this.myDate = new Date(date);
+        if(myDate.getDate()!=null){
+            this.myAge = new Age(date);
+        }
+        else{
+            this.myAge = null;
+        }
+
         if(saveDate() && saveUsername()){
-            age = calculateAge(date);
             return ActionSupport.SUCCESS;
         }
         return ActionSupport.INPUT;        
     }
 
     public boolean saveDate() throws Exception {
-        if(isDatePropertyInvalid()) {
+        if(myDate.getDate()==null) {
             addActionError(INVALID_DATE_MESSAGE_STRING);
             return false;
         }
-        if(checkLegalAge(legalAge,stringToDate(date))){
+        if(myAge.checkLegalAge(legalAge,myDate.GetLocalDate())){
             return true;
         }
         else{
@@ -61,29 +76,22 @@ public class HelloWorldAction extends ActionSupport {
     }
 
     public boolean saveUsername() throws Exception {
-        if(isNamePropertyInvalid()) {
+        if(myName.getName()==null) {
             addActionError(INVALID_NAME_MESSAGE_STRING);
             return false;        
         }
         return true;        
         }
 
-    public LocalDate stringToDate(String date) throws ParseException {
+    /*public LocalDate stringToDate(String date) throws ParseException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(StringHelper.DATE_FORMAT);
         LocalDate userDate = LocalDate.parse(date, formatter);
         return userDate;
-    }
+    }*/
 
-    public boolean checkLegalAge(int legalAge, LocalDate date){
-        LocalDate currentDate = LocalDate.now(ZoneOffset.UTC);
-        currentDate = currentDate.minusYears(legalAge);
-        if(currentDate.isBefore(date)){
-            return false;
-        }             
-        return true;
-    }
+    
 
-    public String calculateAge(String date){
+    /*public String calculateAge(String date){
         LocalDate currentDate = LocalDate.now(ZoneOffset.UTC);
         if(!isDatePropertyInvalid()) {
             LocalDate birthDate;
@@ -100,7 +108,7 @@ public class HelloWorldAction extends ActionSupport {
             return "";
         }
     }
-
+    /*
     public boolean isValidDateFormat(String date) {
         SimpleDateFormat myDateFormat = new SimpleDateFormat(StringHelper.DATE_FORMAT);
         myDateFormat.setLenient(false);        
@@ -111,7 +119,7 @@ public class HelloWorldAction extends ActionSupport {
         catch (java.text.ParseException e) {
             return false;
         }
-    }
+    }*/
     
 
     public String getName() {
@@ -130,21 +138,13 @@ public class HelloWorldAction extends ActionSupport {
         this.date = date;
     }
 
-    
-
     public String getAge() {
-        return age;
+        return myAge.getAge();
     }
-
     public void setAge(String age) {
         this.age = age;
     }
 
-    protected boolean isNamePropertyInvalid() {
-        return name == null || name.isEmpty();
-    }
 
-    protected boolean isDatePropertyInvalid() {
-        return date == null || date.isEmpty() || (!isValidDateFormat(date));
-    }
+    
 }

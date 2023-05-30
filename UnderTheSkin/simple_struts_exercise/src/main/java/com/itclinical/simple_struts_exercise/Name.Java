@@ -12,7 +12,17 @@ public class Name {
     }
 
     public Name(String myName) {
-        this.name = myName;
+        if (isNamePropertyInvalid(myName)){       
+            this.name = null;
+        }
+        else{        
+            this.name = myName;
+        }
+        
+    }
+
+    protected boolean isNamePropertyInvalid(String myName) {
+        return myName == null || myName.isEmpty();
     }
     
 }

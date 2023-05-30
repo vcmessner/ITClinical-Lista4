@@ -11,22 +11,23 @@ public class User {
 
     private Name name;
     private Age age;
-    private Date date;
+    private Date birthDate;
     private Country country;
     private String legalAge;
 
     @Autowired
-    public User(String myName, String myDate, String myCountry) {
+    public User(String myName, String birthDate, String myCountry) {
         this.name = new Name(myName);
         //this.myAge = new Age(myAge);
-        this.date = new Date(myDate);
+        this.birthDate = new Date(birthDate);
         this.country = new Country(myCountry);
+        this.age = new Age(birthDate);
     }
 
     @Autowired
     public User(String myName, String myDate) {
         this.name = new Name(myName);
-        this.date = new Date(myDate);
+        this.birthDate = new Date(myDate);
     }
 
 
@@ -41,7 +42,7 @@ public class User {
     
 
     public String getDate() {
-        return date.getDate();
+        return birthDate.getDate();
     }
 
     
@@ -63,7 +64,7 @@ public class User {
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.birthDate = date;
     }
 
     public void setCountry(Country country) {
